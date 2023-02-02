@@ -1,0 +1,33 @@
+# Application status info/metadata for the /status operation
+appinfo:
+  name: my-application
+  # The details themselves
+  details:
+    # Application version
+    version: '1.0'
+    # A brief description of the application
+    description: my-application description
+    # The SHA commit that is replaced in the CI/CD pipeline.
+    sha: TO_BE_SET
+
+## SPRING AND SPRING BOOT CONFIGURATION
+# Root log level for logback/slf4j
+log.level: DEBUG
+
+# Where Springdoc's Open API spec can be found
+springdoc:
+  api-docs:
+    path: '/openapi-spec'
+  swagger-ui:
+    path: '/swagger-ui'
+  show-actuator: true
+
+# Exposing all the default enabled Spring Boot actuators
+# via HTTP
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
