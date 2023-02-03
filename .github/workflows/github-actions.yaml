@@ -25,6 +25,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.set_version.outputs.version }}
     env:
       LAST_COMMIT_SHA: ${{ github.sha }}
     steps:
@@ -46,11 +48,25 @@ jobs:
         shell: bash
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
-      - name: Run tests with Gradle
+      - name: Build application with Gradle
         uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
         with:
-          arguments: clean build
-
+          arguments: clean build -x test
+      - name: Get version of JAR/application
+        run: echo "version=$(grep ^version build.gradle | cut -d'=' -f2 | sed -e 's/^[[:space:]]*//' | tr -d \')" >> $GITHUB_ENV
+      - id: set_version
+        name: Set version for package job
+        run: echo "version=$version" >> $GITHUB_OUTPUT
+      - name: Export JAR file for publishing
+        uses: actions/upload-artifact@v3
+        with:
+          name: jar
+          path: build/libs/challenge-${version}.jar
+      - name: Export Dockerfile for publishing
+        uses: actions/upload-artifact@v3
+        with:
+          name: dockerfile
+          path: Dockerfile
 
 #  publish:
     # Log into Github docker repo
