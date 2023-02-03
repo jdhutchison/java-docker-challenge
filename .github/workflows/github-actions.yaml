@@ -78,13 +78,13 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: jar
-          path: build/libs/challenge-${{ env.VERSION }}.jar
+          path: build/libs
 
       - name: Get Dockerfile artifact
         uses: actions/download-artifact@v3
         with:
           name: dockerfile
-          path: Dockerfile
+          path: .
 
       # Log into Github docker repo
       - name: Set up QEMU
