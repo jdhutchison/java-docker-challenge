@@ -104,8 +104,6 @@ jobs:
         with:
           context: .
           push: true
-          tags:
-           - ${{ github.repository_owner }}/challenge:latest
-           - ${{ github.repository_owner }}/challenge:${{ env.VERSION }}
+          tags: ${{ github.repository_owner }}/challenge:latest, ${{ github.repository_owner }}/challenge:${{ env.VERSION }}
           build-args: VERSION=${{ env.VERSION }}
 
