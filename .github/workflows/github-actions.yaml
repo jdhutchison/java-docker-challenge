@@ -107,6 +107,5 @@ jobs:
           tags:
            - ${{ github.repository_owner }}/challenge:latest
            - ${{ github.repository_owner }}/challenge:${{ env.VERSION }}
-          build-args:
-            - VERSION=${{ env.VERSION }}
+          build-args: VERSION=${{ env.VERSION }}
 
