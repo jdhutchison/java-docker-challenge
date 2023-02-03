@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: jar
-          path: build/libs/challenge-${version}.jar
+          path: "build/libs/challenge-${version}.jar"
       - name: Export Dockerfile for publishing
         uses: actions/upload-artifact@v3
         with:
